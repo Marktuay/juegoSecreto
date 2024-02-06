@@ -2,7 +2,7 @@
 //Inicio de codificación
 let numeroSecreto = 0;
 let intentos = 0;
-console.log(numeroSecreto);
+let listaNumerosSorteados = [];
 
 function asignarTextoElemento(elemento,texto) {
     let elementoHTML = document.querySelector(elemento);
@@ -39,7 +39,23 @@ function limpiarCampo() {
 
 function generarNumeroSecreto() {
     // let numeroSecreto = Math.Floor(Math.random()*10)+1; opcion de declarar variable global
-    return  Math.floor(Math.random()*10)+1; // esta opcion no hay necesidad de declarar variable
+    let numeroGenerado =  Math.floor(Math.random()*numeroMaximo)+1;
+    console.log(numeroGenerado);
+    console.log(listaNumerosSorteados);
+    //Si ya sorteamos todos los números
+    if (listaNumerosSorteados.length == numeroMaximo) {
+        asignarTextoElemento('p','Ya se sortearon todos los números posibles');
+    } else {
+        //Si el numero generado está incluido en la lista 
+        if (listaNumerosSorteados.includes(numeroGenerado)) {
+            return generarNumeroSecreto();
+        } else {
+            listaNumerosSorteados.push(numeroGenerado);
+            return numeroGenerado;
+        }
+    }
+}
+
     
 }
 function condicionesInciales(){
@@ -47,6 +63,7 @@ function condicionesInciales(){
     asignarTextoElemento('p', 'Indica un número entre 1 y 10');
     numeroSecreto = generarNumeroSecreto();
     intentos = 1;
+    console.log(numeroSecreto);
 
 }
 
